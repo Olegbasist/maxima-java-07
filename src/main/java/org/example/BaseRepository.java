@@ -13,20 +13,20 @@ public interface BaseRepository {
 
     //Заполнение
     void createTable(String name, int weight, boolean isAngry);
-    void insertRecord(String name, int weight, boolean isAngry);
+    void addRecord(String name, int weight, boolean isAngry);
     void deleteRecord(String name);
 
     //Изменение данных
-    int updateRecord(String nameToChange, String rowToChange, String name, int weight, boolean isAngry);
-    int updateRecordName(String nameToChange, String name);
-    int updateRecordWeight(String nameToChange, int weight);
-    int updateRecordAngry(String nameToChange, boolean isAngry);
+    int editRecord(String nameToChange, String rowToChange, String name, int weight, boolean isAngry);
+    int editRecordName(String nameToChange, String name);
+    int editRecordWeight(String nameToChange, int weight);
+    int editRecordAngry(String nameToChange, boolean isAngry);
 
     //Поиск
-    void findAll(String name);
+    void findAll(String name);//Но лучше бы ID
 
     //Все операции разом
-    int executer(String operation, String string, String row, String name, int weight, boolean isAngry);
+    int executes(String operation, String string, String row, String name, int weight, boolean isAngry);
 
 
 }
