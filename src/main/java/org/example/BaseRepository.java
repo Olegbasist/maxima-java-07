@@ -7,6 +7,7 @@ package org.example;
 //Первая версия сильно перегружена разными идеями,
 // на самом деле я ждал гораздо более простого решения.
 
+// См. комментарии в BaseRepository2
 
 public interface BaseRepository {
 
