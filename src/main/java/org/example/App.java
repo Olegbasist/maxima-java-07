@@ -1,9 +1,16 @@
 package org.example;
 
-// 31.10.2022 Для решения задач использовать репозиторий maxima-java-07
+// TODO: Описать интерфейс BaseRepository для реализации репозитория котов:
+//  CRUD-операции + выборка данных с методами:
+//      boolean create(T element);
+//      T read(I id);
+//      int update(I id, T element);
+//      void delete(I id);
+//      List<T> findAll(); //search(), get.. select
 //
-// TODO: 31.10.2022 Описать базовый интерфейс BaseRepository для реализации паттерна DAO с CRUD операциями и выборкой всех объектов (для любого класса) findAll()
-
+// TODO: Описать класс SimpleCatRepository для реализации этого интерфейса.
+//
+// TODO: URL базы данных и имя таблицы задайте в конструкторе класса выбранным Вами способом
 public class App 
 {
     public static void main( String[] args )

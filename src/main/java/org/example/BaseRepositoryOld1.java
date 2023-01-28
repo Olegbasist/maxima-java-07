@@ -1,14 +1,15 @@
 package org.example;
 
-// TODO: Описать интерфейс BaseRepository для реализации репозитория котов:
-//  CRUD-операции + выборка данных с методами:
-//      boolean create(T element);
-//      T read(I id);
-//      int update(I id, T element);
-//      void delete(I id);
-//      List<T> findAll(); //search(), get.. select
+// 31.10.2022 Описать базовый интерфейс BaseRepository для реализации паттерна DAO
+// с CRUD операциями и выборкой всех объектов (для любого класса) findAll()
 
-public interface BaseRepository {
+//Комментарий преподавателя:
+//Первая версия сильно перегружена разными идеями,
+// на самом деле я ждал гораздо более простого решения.
+
+// См. комментарии в BaseRepository2
+
+public interface BaseRepositoryOld1 {
 
     public static final String DB_URL = "jdbc:h2:mem:db";
     public static final String DB_DRIVER = "org.h2.Driver";
