@@ -35,10 +35,6 @@ public interface BaseRepository<T, I> {
     //Update
     int update(I id, T element);
 
-/*    int editRecord(I id, String nameToChange, String rowToChange, String name, int weight, boolean isAngry);
-    int editRecordName(I id, String nameToChange, String name);
-    int editRecordWeight(I id, String nameToChange, int weight);
-    int editRecordAngry(I id, String nameToChange, boolean isAngry);*/
 
     // Delete
     void delete(I id);
