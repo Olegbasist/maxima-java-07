@@ -1,4 +1,4 @@
-package org.example;
+package org.example.repository;
 
 // TODO: Описать интерфейс BaseRepository для реализации репозитория котов:
 //  CRUD-операции + выборка данных с методами:
