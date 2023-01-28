@@ -7,4 +7,7 @@ public interface CatRepository <Cat, Long> extends BaseRepository{
     int editCatWeight(Cat id, String nameToChange, int weight);
     int editCatAngry(Cat id, String nameToChange, boolean isAngry);*/
 
+       /*//Заполнение
+    void createTable(String name, int weight, boolean isAngry);*/
+
 }

@@ -22,17 +22,13 @@ public interface BaseRepository<T, I> {
 
     // -----------------------------------------------------------------
 
-
-    /*//Заполнение
-    void createTable(String name, int weight, boolean isAngry);*/
-
     // Create
     boolean create(T element);
 
     // Read
     T read(I id);
 
-    //Update
+    // Update
     int update(I id, T element);
 
 
@@ -41,8 +37,4 @@ public interface BaseRepository<T, I> {
 
     //Поиск (Search)
     List<T> findAll();
-
-   /* //Все операции разом (старое)
-    int executes(String operation, String string, String row, String name, int weight, boolean isAngry);
-    */
 }
