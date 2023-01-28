@@ -9,8 +9,6 @@ public class SimpleCatRepository implements BaseRepository{
     public static final String DB_URL = "jdbc:h2:mem:db";
     public static final String DB_DRIVER = "org.h2.Driver";
 
-    // -----------------------------------------------------------------
-
 
     @Override
     public void connectToDB(String DB_URL, String DB_DRIVER) {
@@ -22,7 +20,8 @@ public class SimpleCatRepository implements BaseRepository{
 
     }
 
-    @Override
+    // ----------------------------------------------------------------
+
     public void createTable(String name, int weight, boolean isAngry) {
 
     }

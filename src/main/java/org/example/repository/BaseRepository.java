@@ -14,8 +14,8 @@ public interface BaseRepository<T, I> {
 
     //Соединение с БД -------------------------------------------------
 
-    public static final String DB_URL = "jdbc:h2:mem:db";
-    public static final String DB_DRIVER = "org.h2.Driver";
+    /*public static final String DB_URL = "jdbc:h2:mem:db";
+    public static final String DB_DRIVER = "org.h2.Driver";*/
 
     void connectToDB(String DB_URL, String DB_DRIVER);
     void disconnectFromDB();
@@ -23,8 +23,8 @@ public interface BaseRepository<T, I> {
     // -----------------------------------------------------------------
 
 
-    //Заполнение
-    void createTable(String name, int weight, boolean isAngry);
+    /*//Заполнение
+    void createTable(String name, int weight, boolean isAngry);*/
 
     // Create
     boolean create(T element);
