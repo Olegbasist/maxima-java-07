@@ -3,9 +3,18 @@ package org.example.model;
 
 public class Cat {
 
+    private Long id;
     private String name;
     private int weight;
     private boolean isAngry;
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
 
     public String getName() {
         return name;
@@ -39,7 +48,8 @@ public class Cat {
         isAngry = angry;
     }
 
-    public Cat(String name, int weight, boolean isAngry) throws IncorrectCatWeightException {
+    public Cat(Long id, String name, int weight, boolean isAngry) throws IncorrectCatWeightException {
+        this.id = id;
         this.name = name;
         setWeight(weight);
         this.isAngry = isAngry;
@@ -48,7 +58,8 @@ public class Cat {
     @Override
     public String toString() {
         return "Cat{" +
-                "name='" + name + '\'' +
+                "id=" + id +
+                ", name='" + name + '\'' +
                 ", weight=" + weight +
                 ", isAngry=" + isAngry +
                 '}';
