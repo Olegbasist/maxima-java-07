@@ -1,6 +1,6 @@
 package org.example;
 
-// TODO: Описать интерфейс BaseRepository для реализации репозитория котов:
+//  Описать интерфейс BaseRepository для реализации репозитория котов:
 //  CRUD-операции + выборка данных с методами:
 //      boolean create(T element);
 //      T read(I id);

@@ -1,6 +1,6 @@
 package org.example.repository;
 
-// TODO: Описать интерфейс BaseRepository для реализации репозитория котов:
+//  Описать интерфейс BaseRepository для реализации репозитория котов:
 //  CRUD-операции + выборка данных с методами:
 //      boolean create(T element);
 //      T read(I id);
@@ -21,6 +21,7 @@ public interface BaseRepository<T, I> {
     void disconnectFromDB();
 
     // -----------------------------------------------------------------
+
 
     //Заполнение
     void createTable(String name, int weight, boolean isAngry);
