@@ -2,7 +2,7 @@ package org.example.repository;
 
 import java.util.List;
 
-public class SimpleCatRepository implements BaseRepository{
+public class SimpleCatRepository implements CatRepository{
 
     //Соединение с БД -------------------------------------------------
 
