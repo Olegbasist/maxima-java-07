@@ -8,31 +8,44 @@ package org.example.repository;
 //      void delete(I id);
 //      List<T> findAll(); //search(), get.. select
 
-public interface BaseRepository {
+import java.util.List;
+
+public interface BaseRepository<T, I> {
+
+    //Соединение с БД -------------------------------------------------
 
     public static final String DB_URL = "jdbc:h2:mem:db";
     public static final String DB_DRIVER = "org.h2.Driver";
 
-
     void connectToDB(String DB_URL, String DB_DRIVER);
     void disconnectFromDB();
 
+    // -----------------------------------------------------------------
+
     //Заполнение
     void createTable(String name, int weight, boolean isAngry);
-    void addRecord(String name, int weight, boolean isAngry);
-    void deleteRecord(String name);
 
-    //Изменение данных
-    int editRecord(String nameToChange, String rowToChange, String name, int weight, boolean isAngry);
-    int editRecordName(String nameToChange, String name);
-    int editRecordWeight(String nameToChange, int weight);
-    int editRecordAngry(String nameToChange, boolean isAngry);
+    // Create
+    boolean create(T element);
 
-    //Поиск
-    void findAll(String name);//Но лучше бы ID
+    // Read
+    T read(I id);
 
-    //Все операции разом
+    //Update
+    int update(I id, T element);
+
+/*    int editRecord(I id, String nameToChange, String rowToChange, String name, int weight, boolean isAngry);
+    int editRecordName(I id, String nameToChange, String name);
+    int editRecordWeight(I id, String nameToChange, int weight);
+    int editRecordAngry(I id, String nameToChange, boolean isAngry);*/
+
+    // Delete
+    void delete(I id);
+
+    //Поиск (Search)
+    List<T> findAll();
+
+   /* //Все операции разом (старое)
     int executes(String operation, String string, String row, String name, int weight, boolean isAngry);
-
-
+    */
 }

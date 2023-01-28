@@ -13,8 +13,17 @@ package org.example;
 // TODO: URL базы данных и имя таблицы задайте в конструкторе класса выбранным Вами способом
 public class App 
 {
+
     public static void main( String[] args )
     {
-        System.out.println( "Hello World!" );
+       /* //Соединение с БД -------------------------------------------------
+
+        public static final String DB_URL = "jdbc:h2:mem:db";
+        public static final String DB_DRIVER = "org.h2.Driver";
+
+        void connectToDB(String DB_URL, String DB_DRIVER);
+        void disconnectFromDB();
+
+        // -----------------------------------------------------------------*/
     }
 }
