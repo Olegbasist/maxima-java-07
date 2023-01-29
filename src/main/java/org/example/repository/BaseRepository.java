@@ -8,6 +8,7 @@ package org.example.repository;
 //      void delete(I id);
 //      List<T> findAll(); //search(), get.. select
 
+import java.sql.SQLException;
 import java.util.List;
 
 public interface BaseRepository<T, I> {
@@ -15,23 +16,23 @@ public interface BaseRepository<T, I> {
     //Соединение с БД -------------------------------------------------
 
     void connectToDB();
-    void disconnectFromDB();
+    void disconnectFromDB() throws SQLException;
 
     // -----------------------------------------------------------------
 
     // Create
-    boolean create(T element);
+    boolean create(T element) throws SQLException;
 
     // Read
-    T read(I id);
+    T read(I id) throws SQLException;
 
     // Update
-    int update(I id, T element);
+    int update(I id, T element) throws SQLException;
 
 
     // Delete
-    void delete(I id);
+    void delete(I id) throws SQLException;
 
     //Поиск (Search)
-    List<T> findAll();
+    List<T> findAll() throws SQLException;
 }

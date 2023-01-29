@@ -7,10 +7,7 @@ package org.example.repository;
 
 import org.example.model.Cat;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 import java.util.List;
 
 public class SimpleCatRepository implements CatRepository <Cat, List> {
@@ -33,17 +30,23 @@ public class SimpleCatRepository implements CatRepository <Cat, List> {
             throw new RuntimeException(e);
         }
     }
-    public void createTable() {
+    public void createTable() throws SQLException {
         connectToDB();
-        try {
+
             statement.executeUpdate("CREATE TABLE cats (ID BIGINT, Name VARCHAR(30), Weight INT, Angry BIT)");
-            statement.executeUpdate("INSERT INTO cats(ID, Name) VALUES (1,'Cat')");
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
+            statement.executeUpdate("INSERT INTO cats(ID, Name, Weight, Angry) VALUES (9223372036854775807,'Cat', 5, 1)");
+            ResultSet resultSet = statement.executeQuery("SELECT  * FROM cats");
+            while (resultSet.next()){
+                Long id = resultSet.getLong("ID");
+                String name = resultSet.getString("Name");
+                int weight = resultSet.getInt("Weight");
+                boolean isAngry = resultSet.getBoolean("Angry");
+                System.out.println(id + name + weight + isAngry);
+            }
 
         disconnectFromDB();
         // Скорее всего не надо
+        getAllCats();
     }
 
     @Override
@@ -62,14 +65,11 @@ public class SimpleCatRepository implements CatRepository <Cat, List> {
     }
 
     @Override
-    public void disconnectFromDB() {
+    public void disconnectFromDB() throws SQLException {
         System.out.print("Отключаюсь от БД ...");
-        try {
-            connection.close();
-        } catch (SQLException e) {
-            System.out.println(" неудачно!");
-            throw new RuntimeException(e);
-        }
+
+            //connection.close();
+
         System.out.println(" ОК");
     }
 
@@ -77,7 +77,7 @@ public class SimpleCatRepository implements CatRepository <Cat, List> {
 
 
     @Override
-    public boolean create(Cat element) {
+    public boolean create(Cat element) throws SQLException {
 
         connectToDB();
         disconnectFromDB();
@@ -86,7 +86,7 @@ public class SimpleCatRepository implements CatRepository <Cat, List> {
     }
 
     @Override
-    public Cat read(List id) {
+    public Cat read(List id) throws SQLException {
 
         connectToDB();
         disconnectFromDB();
@@ -95,7 +95,7 @@ public class SimpleCatRepository implements CatRepository <Cat, List> {
     }
 
     @Override
-    public int update(List id, Cat element) {
+    public int update(List id, Cat element) throws SQLException {
 
         connectToDB();
         disconnectFromDB();
@@ -104,7 +104,7 @@ public class SimpleCatRepository implements CatRepository <Cat, List> {
     }
 
     @Override
-    public void delete(List id) {
+    public void delete(List id) throws SQLException {
 
         connectToDB();
         disconnectFromDB();
@@ -112,10 +112,44 @@ public class SimpleCatRepository implements CatRepository <Cat, List> {
     }
 
     @Override
-    public List<Cat> findAll() {
+    public List<Cat> findAll() throws SQLException {
         connectToDB();
+        ResultSet resultSet = null;
+        try {
+            resultSet = statement.executeQuery("SELECT * FROM cats");
+
+        while (resultSet.next()){
+            Long id = resultSet.getLong("ID");
+            String name = resultSet.getString("Name");
+            int weight = resultSet.getInt("Weight");
+            boolean isAngry = resultSet.getBoolean("Angry");
+            System.out.println(id + name + weight + isAngry);
+        }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
         disconnectFromDB();
         return null;
+    }
+    public void getAllCats() throws SQLException {
+        connectToDB();
+        System.out.println("Вывожу всех котов:");
+        ResultSet resultSet;
+        try {
+            resultSet = statement.executeQuery("SELECT * FROM cats");
+
+            while (resultSet.next()){
+                //Long id = resultSet.getLong("ID");
+                String name = resultSet.getString("Name");
+                int weight = resultSet.getInt("Weight");
+                boolean isAngry = resultSet.getBoolean("Angry");
+                System.out.println(name + weight + isAngry);
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        System.out.println("Коты кончились.");
+        disconnectFromDB();
     }
 
 }
