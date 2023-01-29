@@ -1,5 +1,7 @@
 package org.example;
 
+import org.example.model.Cat;
+import org.example.model.IncorrectCatWeightException;
 import org.example.repository.SimpleCatRepository;
 
 import java.sql.*;
@@ -22,7 +24,7 @@ public class App
     public static final String DB_URL = "jdbc:h2:mem:db";
     public static final String DB_DRIVER = "org.h2.Driver";
 
-    public static void main( String[] args ) throws ClassNotFoundException, SQLException {
+    public static void main( String[] args ) throws ClassNotFoundException, SQLException, IncorrectCatWeightException {
         //Пробую БД
         /*System.out.print("Соединяюсь с БД ...");
         Class.forName(DB_DRIVER);
@@ -61,6 +63,11 @@ public class App
         // -----------------------------------------------------------------
         SimpleCatRepository simpleCatRepository = new SimpleCatRepository(DB_URL, DB_DRIVER);
         simpleCatRepository.addTestCats();
+        simpleCatRepository.getAllCats();
+
+        System.out.println("-------------------------------------------");
+        Cat cat = new Cat(12L,"Kott",7,false);
+        simpleCatRepository.create(cat);
         simpleCatRepository.getAllCats();
 
 
