@@ -4,6 +4,8 @@ package org.example.repository;
 // TODO: URL базы данных и имя таблицы задайте в конструкторе класса выбранным Вами способом
 //
 // В каждом методе отрыть и закрыть отдельный connection
+// После вызова метода close толка от объекта connection уже нет.
+// Для повторной установки соединения придётся воспользоваться метод getConnection
 
 import org.example.model.Cat;
 
@@ -36,13 +38,13 @@ public class SimpleCatRepository implements CatRepository <Cat, List> {
             statement.executeUpdate("CREATE TABLE cats (ID BIGINT, Name VARCHAR(30), Weight INT, Angry BIT)");
             statement.executeUpdate("INSERT INTO cats(ID, Name, Weight, Angry) VALUES (9223372036854775807,'Cat', 5, 1)");
             ResultSet resultSet = statement.executeQuery("SELECT  * FROM cats");
-            while (resultSet.next()){
+            /*while (resultSet.next()){
                 Long id = resultSet.getLong("ID");
                 String name = resultSet.getString("Name");
                 int weight = resultSet.getInt("Weight");
                 boolean isAngry = resultSet.getBoolean("Angry");
                 System.out.println(id + name + weight + isAngry);
-            }
+            }*/
 
         disconnectFromDB();
         // Скорее всего не надо
@@ -50,16 +52,13 @@ public class SimpleCatRepository implements CatRepository <Cat, List> {
     }
 
     @Override
-    public void connectToDB() {
+    public void connectToDB() throws SQLException {
 
         System.out.print("Подключаюсь с БД ...");
-        try {
+
             connection = DriverManager.getConnection(DB_URL);
             statement = connection.createStatement();
-        } catch (SQLException e) {
-            System.out.println(" неудачно!");
-            throw new RuntimeException(e);
-        }
+
         System.out.println(" ОК");
 
     }

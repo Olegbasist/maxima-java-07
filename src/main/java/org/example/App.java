@@ -26,15 +26,20 @@ public class App
         //Пробую БД
         /*System.out.print("Соединяюсь с БД ...");
         Class.forName(DB_DRIVER);
-        Connection connection = DriverManager.getConnection(DB_URL);
+        Connection connection;
+        connection = DriverManager.getConnection(DB_URL);
         System.out.println(" ОК");
 
         Statement statement = connection.createStatement();
         statement.executeUpdate("CREATE TABLE cats (Name VARCHAR(30), Weight INT, Angry BIT)");
         statement.executeUpdate("INSERT INTO cats(Name, Weight, Angry) VALUES ('Cat', 5, 0)");
 
-        ResultSet resultSet = statement.executeQuery("SELECT * FROM cats");
 
+        //connection.close();
+        System.out.println("Соединение с БД закрыто: " +connection.isClosed());
+        //connection = DriverManager.getConnection(DB_URL);
+
+        ResultSet resultSet = statement.executeQuery("SELECT * FROM cats");
         while (resultSet.next()){
             String name = resultSet.getString("Name");
             int weight = resultSet.getInt("Weight");

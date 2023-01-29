@@ -15,7 +15,7 @@ public interface BaseRepository<T, I> {
 
     //Соединение с БД -------------------------------------------------
 
-    void connectToDB();
+    void connectToDB() throws SQLException;
     void disconnectFromDB() throws SQLException;
 
     // -----------------------------------------------------------------
