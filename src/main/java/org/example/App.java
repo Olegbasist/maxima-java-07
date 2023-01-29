@@ -22,7 +22,7 @@ public class App
     public static final String DB_URL = "jdbc:h2:mem:db";
     public static final String DB_DRIVER = "org.h2.Driver";
 
-    public static void main( String[] args ) throws SQLException, ClassNotFoundException {
+    public static void main( String[] args ) throws ClassNotFoundException, SQLException {
         //Пробую БД
         /*System.out.print("Соединяюсь с БД ...");
         Class.forName(DB_DRIVER);
@@ -56,12 +56,16 @@ public class App
 
 
         //Генерация UUID --------------------------------------------------
-        System.out.println(UUID.randomUUID());
+        //System.out.println(UUID.randomUUID());
 
         // -----------------------------------------------------------------
         SimpleCatRepository simpleCatRepository = new SimpleCatRepository(DB_URL, DB_DRIVER);
+        simpleCatRepository.addTestCats();
+        simpleCatRepository.getAllCats();
+
+
         //simpleCatRepository.connectToDB();
-        simpleCatRepository.createTable();
+        //simpleCatRepository.createTable();
         //simpleCatRepository.getAllCats();
         //simpleCatRepository.disconnectFromDB();
 

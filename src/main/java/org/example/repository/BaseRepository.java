@@ -13,12 +13,7 @@ import java.util.List;
 
 public interface BaseRepository<T, I> {
 
-    //Соединение с БД -------------------------------------------------
 
-    void connectToDB() throws SQLException;
-    void disconnectFromDB() throws SQLException;
-
-    // -----------------------------------------------------------------
 
     // Create
     boolean create(T element) throws SQLException;
