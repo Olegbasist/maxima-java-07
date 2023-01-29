@@ -14,10 +14,7 @@ public interface BaseRepository<T, I> {
 
     //Соединение с БД -------------------------------------------------
 
-    /*public static final String DB_URL = "jdbc:h2:mem:db";
-    public static final String DB_DRIVER = "org.h2.Driver";*/
-
-    void connectToDB(String DB_URL, String DB_DRIVER);
+    void connectToDB();
     void disconnectFromDB();
 
     // -----------------------------------------------------------------

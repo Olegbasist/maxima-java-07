@@ -1,5 +1,10 @@
 package org.example;
 
+import org.example.repository.SimpleCatRepository;
+
+import java.util.UUID;
+
+
 //  Описать интерфейс BaseRepository для реализации репозитория котов:
 //  CRUD-операции + выборка данных с методами:
 //      boolean create(T element);
@@ -16,14 +21,19 @@ public class App
 
     public static void main( String[] args )
     {
-       /* //Соединение с БД -------------------------------------------------
+        //Соединение с БД -------------------------------------------------
 
-        public static final String DB_URL = "jdbc:h2:mem:db";
-        public static final String DB_DRIVER = "org.h2.Driver";
+        final String DB_URL = "jdbc:h2:mem:db";
+        final String DB_DRIVER = "org.h2.Driver";
 
-        void connectToDB(String DB_URL, String DB_DRIVER);
-        void disconnectFromDB();
+        /*void connectToDB(String DB_URL, String DB_DRIVER);
+        void disconnectFromDB();*/
 
-        // -----------------------------------------------------------------*/
+        //Генерация UUID
+        //System.out.println(UUID.randomUUID());
+
+        // -----------------------------------------------------------------
+        SimpleCatRepository simpleCatRepository = new SimpleCatRepository(DB_URL, DB_DRIVER);
+        simpleCatRepository.connectToDB();
     }
 }

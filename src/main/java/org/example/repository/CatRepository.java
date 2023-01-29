@@ -1,13 +1,22 @@
 package org.example.repository;
 
-public interface CatRepository <Cat, Long> extends BaseRepository{
+import java.util.List;
 
-    /*int editCat(Cat id, String nameToChange, String rowToChange, String name, int weight, boolean isAngry);
-    int editCatName(Cat id, String nameToChange, String name);
-    int editCatWeight(Cat id, String nameToChange, int weight);
-    int editCatAngry(Cat id, String nameToChange, boolean isAngry);*/
+public interface CatRepository <Cat, Long> extends BaseRepository <Cat, Long>{
 
-       /*//Заполнение
-    void createTable(String name, int weight, boolean isAngry);*/
 
+    @Override
+    boolean create(Cat element);
+
+    @Override
+    Cat read(Long id);
+
+    @Override
+    int update(Long id, Cat element);
+
+    @Override
+    void delete(Long id);
+
+    @Override
+    List<Cat> findAll();
 }
