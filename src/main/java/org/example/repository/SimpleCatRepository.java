@@ -77,12 +77,13 @@ public class SimpleCatRepository implements CatRepository <Cat, Long>{
     public boolean create(Cat cat) throws SQLException {
         Connection connection = DriverManager.getConnection(DB_URL);
         Statement statement = connection.createStatement();
-        long id = cat.getId();
+        String id = cat.getId().toString();
         String name = cat.getName();
 
         //createTable();
         // Не видит переменные в SQL запросе
-        statement.executeUpdate("INSERT INTO cats(ID, Name, Weight, Angry) VALUES (id, name, 5, 1)");
+
+        statement.executeUpdate("INSERT INTO cats(ID, Name, Weight, Angry) VALUES (88,'" +name +"',5,1)");
 
         connection.close();
         return false;
