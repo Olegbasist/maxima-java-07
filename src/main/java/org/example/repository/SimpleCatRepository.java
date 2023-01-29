@@ -24,40 +24,53 @@ public class SimpleCatRepository implements CatRepository <Cat, List> {
     private Statement statement = null;
 
 
-
     public SimpleCatRepository(String DB_URL, String DB_DRIVER) {
         this.DB_URL = DB_URL;
         this.DB_DRIVER = DB_DRIVER;
+        try {
+            Class.forName(DB_DRIVER);
+        } catch (ClassNotFoundException e) {
+            throw new RuntimeException(e);
+        }
     }
-    public void createTable(String name, int weight, boolean isAngry) {
+    public void createTable() {
+        connectToDB();
+        try {
+            statement.executeUpdate("CREATE TABLE cats (ID BIGINT, Name VARCHAR(30), Weight INT, Angry BIT)");
+            statement.executeUpdate("INSERT INTO cats(ID, Name) VALUES (1,'Cat')");
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+
+        disconnectFromDB();
         // Скорее всего не надо
     }
 
     @Override
     public void connectToDB() {
 
-        System.out.println("Подключаюсь с БД ...");
+        System.out.print("Подключаюсь с БД ...");
         try {
             connection = DriverManager.getConnection(DB_URL);
             statement = connection.createStatement();
         } catch (SQLException e) {
+            System.out.println(" неудачно!");
             throw new RuntimeException(e);
         }
-        System.out.print(" ОК");
-
-        /*Class.forName(DB_DRIVER);*/
+        System.out.println(" ОК");
 
     }
 
     @Override
     public void disconnectFromDB() {
-        System.out.println("Отключаюсь от БД");
+        System.out.print("Отключаюсь от БД ...");
         try {
             connection.close();
         } catch (SQLException e) {
+            System.out.println(" неудачно!");
             throw new RuntimeException(e);
         }
-        System.out.print(" ОК");
+        System.out.println(" ОК");
     }
 
     // ----------------------------------------------------------------

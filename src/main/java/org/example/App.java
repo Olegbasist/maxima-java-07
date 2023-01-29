@@ -26,14 +26,13 @@ public class App
         final String DB_URL = "jdbc:h2:mem:db";
         final String DB_DRIVER = "org.h2.Driver";
 
-        /*void connectToDB(String DB_URL, String DB_DRIVER);
-        void disconnectFromDB();*/
-
-        //Генерация UUID
+        //Генерация UUID --------------------------------------------------
         //System.out.println(UUID.randomUUID());
 
         // -----------------------------------------------------------------
         SimpleCatRepository simpleCatRepository = new SimpleCatRepository(DB_URL, DB_DRIVER);
-        simpleCatRepository.connectToDB();
+        //simpleCatRepository.connectToDB();
+        simpleCatRepository.createTable();
+        //simpleCatRepository.disconnectFromDB();
     }
 }
