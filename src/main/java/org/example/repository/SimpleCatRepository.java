@@ -76,6 +76,7 @@ public class SimpleCatRepository implements CatRepository <Cat, Long>{
     // CRUD методы -----------------------------------------------------------------------
     @Override
     public boolean create(Cat cat) throws SQLException {
+        System.out.print("Создаю кота ... ");
         Connection connection = DriverManager.getConnection(DB_URL);
 
         String sqlInsert = "INSERT INTO cats(ID, Name, Weight, Angry) VALUES (?, ?, ?, ?)";
@@ -86,10 +87,10 @@ public class SimpleCatRepository implements CatRepository <Cat, Long>{
         preparedStatement.setString(3, String.valueOf(cat.getWeight()));
         preparedStatement.setString(4, String.valueOf((cat.isAngry() ? 1 : 0)));
 
-        preparedStatement.executeUpdate();
-
+        boolean result = preparedStatement.executeUpdate() != 0;
         connection.close();
-        return false;
+        System.out.println(result ? "Успешно!" : "Неудачно!");
+        return result;
     }
 
     @Override
