@@ -62,12 +62,16 @@ public class App
 
         // -----------------------------------------------------------------
         SimpleCatRepository simpleCatRepository = new SimpleCatRepository(DB_URL, DB_DRIVER);
-        simpleCatRepository.addTestCats();
-        simpleCatRepository.getAllCats();
+        //simpleCatRepository.addTestCats();
+        //simpleCatRepository.getAllCats();
 
         System.out.println("-------------------------------------------");
         Cat cat = new Cat(12L,"Kott",7,false);
         simpleCatRepository.create(cat);
+        simpleCatRepository.getAllCats();
+
+        Cat cat2 = new Cat(13L,"Kottiara",5,true);
+        simpleCatRepository.create(cat2);
         simpleCatRepository.getAllCats();
 
 

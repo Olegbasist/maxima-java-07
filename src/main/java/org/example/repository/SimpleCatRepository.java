@@ -8,6 +8,7 @@ package org.example.repository;
 // Для повторной установки соединения придётся воспользоваться метод getConnection
 
 import org.example.model.Cat;
+import org.h2.command.Prepared;
 
 import java.sql.*;
 import java.util.List;
@@ -76,14 +77,16 @@ public class SimpleCatRepository implements CatRepository <Cat, Long>{
     @Override
     public boolean create(Cat cat) throws SQLException {
         Connection connection = DriverManager.getConnection(DB_URL);
-        Statement statement = connection.createStatement();
-        String id = cat.getId().toString();
-        String name = cat.getName();
 
-        //createTable();
-        // Не видит переменные в SQL запросе
+        String sqlInsert = "INSERT INTO cats(ID, Name, Weight, Angry) VALUES (?, ?, ?, ?)";
 
-        statement.executeUpdate("INSERT INTO cats(ID, Name, Weight, Angry) VALUES (88,'" +name +"',5,1)");
+        PreparedStatement preparedStatement = connection.prepareStatement(sqlInsert);
+        preparedStatement.setString(1, String.valueOf(cat.getId()));
+        preparedStatement.setString(2, cat.getName());
+        preparedStatement.setString(3, String.valueOf(cat.getWeight()));
+        preparedStatement.setString(4, String.valueOf((cat.isAngry() ? 1 : 0)));
+
+        preparedStatement.executeUpdate();
 
         connection.close();
         return false;
