@@ -8,9 +8,11 @@ package org.example.repository;
 // Для повторной установки соединения придётся воспользоваться метод getConnection
 
 import org.example.model.Cat;
+import org.example.model.IncorrectCatWeightException;
 import org.h2.command.Prepared;
 
 import java.sql.*;
+import java.util.ArrayList;
 import java.util.List;
 
 public class SimpleCatRepository implements CatRepository <Cat, Long>{
@@ -113,7 +115,7 @@ public class SimpleCatRepository implements CatRepository <Cat, Long>{
         preparedStatement.setString(3, String.valueOf((cat.isAngry() ? 1 : 0)));
         preparedStatement.setString(4, String.valueOf(id));
         int result = preparedStatement.executeUpdate();
-        
+
         connection.close();
         return result;
     }
@@ -128,11 +130,23 @@ public class SimpleCatRepository implements CatRepository <Cat, Long>{
     }
 
     @Override
-    public List<Cat> findAll() throws SQLException {
+    public List<Cat> findAll() throws SQLException, IncorrectCatWeightException {
+
+
         Connection connection = DriverManager.getConnection(DB_URL);
         Statement statement = connection.createStatement();
 
+        List<Cat> catList = new ArrayList<>();
+        ResultSet resultSet = statement.executeQuery("SELECT * FROM cats");
+
+        while (resultSet.next()){
+                catList.add(new Cat(resultSet.getLong("ID")
+                        ,resultSet.getString("Name")
+                        ,resultSet.getInt("Weight")
+                        , resultSet.getBoolean("Angry")));
+        }
+
         connection.close();
-        return null;
+        return catList;
     }
 }

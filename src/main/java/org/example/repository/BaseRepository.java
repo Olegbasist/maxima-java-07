@@ -8,6 +8,8 @@ package org.example.repository;
 //      void delete(I id);
 //      List<T> findAll(); //search(), get.. select
 
+import org.example.model.IncorrectCatWeightException;
+
 import java.sql.SQLException;
 import java.util.List;
 
@@ -29,5 +31,5 @@ public interface BaseRepository<T, I> {
     void delete(I id) throws SQLException;
 
     //Поиск (Search)
-    List<T> findAll() throws SQLException;
+    List<T> findAll() throws SQLException, IncorrectCatWeightException;
 }
