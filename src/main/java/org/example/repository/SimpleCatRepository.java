@@ -41,7 +41,7 @@ public class SimpleCatRepository implements CatRepository <Cat, Long>{
         Connection connection = DriverManager.getConnection(DB_URL);
         Statement statement = connection.createStatement();
 
-        statement.executeUpdate("INSERT INTO cats(ID, Name, Weight, Angry) VALUES (9223372036854775807,'Cat', 5, 1)");
+        statement.executeUpdate("INSERT INTO cats(ID, Name, Weight, Angry) VALUES (1,'Cat', 5, 1)");
         statement.executeUpdate("INSERT INTO cats(ID, Name, Weight, Angry) VALUES (9,'Cat9', 4, 0)");
         statement.executeUpdate("INSERT INTO cats(ID, Name, Weight, Angry) VALUES (2,'Cat2', 6, 0)");
         statement.executeUpdate("INSERT INTO cats(ID, Name, Weight, Angry) VALUES (3,'Cat3', 7, 1)");
@@ -104,11 +104,18 @@ public class SimpleCatRepository implements CatRepository <Cat, Long>{
 
     @Override
     public int update(Long id, Cat cat) throws SQLException {
-        Connection connection = DriverManager.getConnection(DB_URL);
-        Statement statement = connection.createStatement();
+        String sqlUpdate = "UPDATE cats SET Name = ?, Weight = ?, Angry = ? WHERE ID = ?";
 
+        Connection connection = DriverManager.getConnection(DB_URL);
+        PreparedStatement preparedStatement = connection.prepareStatement(sqlUpdate);
+        preparedStatement.setString(1, cat.getName());
+        preparedStatement.setString(2, String.valueOf(cat.getWeight()));
+        preparedStatement.setString(3, String.valueOf((cat.isAngry() ? 1 : 0)));
+        preparedStatement.setString(4, String.valueOf(id));
+        int result = preparedStatement.executeUpdate();
+        
         connection.close();
-        return 0;
+        return result;
     }
 
     @Override

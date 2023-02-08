@@ -62,7 +62,7 @@ public class App
 
         // -----------------------------------------------------------------
         SimpleCatRepository simpleCatRepository = new SimpleCatRepository(DB_URL, DB_DRIVER);
-        //simpleCatRepository.addTestCats();
+        simpleCatRepository.addTestCats();
         //simpleCatRepository.getAllCats();
 
         System.out.println("-------------------------------------------");
@@ -70,8 +70,9 @@ public class App
         simpleCatRepository.create(cat);
         simpleCatRepository.getAllCats();
 
-        Cat cat2 = new Cat(13L,"Kottiara",5,true);
-        simpleCatRepository.create(cat2);
+        Cat cat2 = new Cat(13L,"Kott2",5,true);
+        System.out.println(simpleCatRepository.update(12L,cat2));
+        //simpleCatRepository.create(cat2);
         simpleCatRepository.getAllCats();
 
 
