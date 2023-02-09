@@ -74,33 +74,48 @@ public class SimpleCatRepository implements CatRepository <Cat, Long>{
     // CRUD методы -----------------------------------------------------------------------
     @Override
     public boolean create(Cat cat) throws SQLException {
-        System.out.print("Создаю кота ... ");
         Connection connection = DriverManager.getConnection(DB_URL);
 
-        String sqlInsert = "INSERT INTO cats(ID, Name, Weight, Angry) VALUES (?, ?, ?, ?)";
+        //Statement
+        String sqlQuery = String.format("INSERT INTO cats (ID, Name, Weight, Angry) " +
+                "VALUES (%s, '%s', %s, %s)",
+                cat.getId(),
+                cat.getName(),
+                cat.getWeight(),
+                (cat.isAngry() ? 1 : 0));
 
+        Statement statement = connection.createStatement();
+        boolean result = statement.execute(sqlQuery);
+
+        // Prepared Statement
+        /*String sqlInsert = "INSERT INTO cats(ID, Name, Weight, Angry) VALUES (?, ?, ?, ?)";
         PreparedStatement preparedStatement = connection.prepareStatement(sqlInsert);
         preparedStatement.setString(1, String.valueOf(cat.getId()));
         preparedStatement.setString(2, cat.getName());
         preparedStatement.setString(3, String.valueOf(cat.getWeight()));
         preparedStatement.setString(4, String.valueOf((cat.isAngry() ? 1 : 0)));
-
-        boolean result = preparedStatement.executeUpdate() != 0;
+        boolean result = preparedStatement.executeUpdate() != 0;*/
+        
         connection.close();
-        System.out.println(result ? "Успешно!" : "Неудачно!");
-        return result;
+        return false;
     }
 
     @Override
     public Cat read(Long id) throws SQLException, IncorrectCatWeightException {
         Connection connection = DriverManager.getConnection(DB_URL);
 
+        // Statement
+        String sqlQuery = String.format("SELECT * FROM cats WHERE ID = %s", id);
+        Statement statement = connection.createStatement();
+        ResultSet resultSet = statement.executeQuery(sqlQuery);
 
-        String sqlSelect = "SELECT * FROM cats WHERE ID = ?";
+        // Prepared Statement
+        /*String sqlSelect = "SELECT * FROM cats WHERE ID = ?";
         PreparedStatement preparedStatement = connection.prepareStatement(sqlSelect);
         preparedStatement.setString(1, String.valueOf(id));
 
-        ResultSet resultSet = preparedStatement.executeQuery();
+        ResultSet resultSet = preparedStatement.executeQuery();*/
+
         resultSet.next();
         Cat cat = new Cat(resultSet.getLong("ID")
                 , resultSet.getString("Name")
