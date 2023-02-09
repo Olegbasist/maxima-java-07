@@ -95,15 +95,12 @@ public class SimpleCatRepository implements CatRepository <Cat, Long>{
     public Cat read(Long id) throws SQLException, IncorrectCatWeightException {
         Connection connection = DriverManager.getConnection(DB_URL);
 
-        String sqlSelect = String.format("SELECT * FROM cats WHERE ID = %s", id);
 
-        /*String sqlSelect = "SELECT * FROM cats WHERE ID = ?";
+        String sqlSelect = "SELECT * FROM cats WHERE ID = ?";
         PreparedStatement preparedStatement = connection.prepareStatement(sqlSelect);
-        preparedStatement.setString(1, String.valueOf(id));*/
+        preparedStatement.setString(1, String.valueOf(id));
 
-
-        Statement statement = connection.createStatement();
-        ResultSet resultSet = statement.executeQuery(sqlSelect);
+        ResultSet resultSet = preparedStatement.executeQuery();
         resultSet.next();
         Cat cat = new Cat(resultSet.getLong("ID")
                 , resultSet.getString("Name")
