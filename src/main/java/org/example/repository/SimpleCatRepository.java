@@ -1,7 +1,7 @@
 package org.example.repository;
 //
-// TODO: Описать класс SimpleCatRepository для реализации этого интерфейса.
-// TODO: URL базы данных и имя таблицы задайте в конструкторе класса выбранным Вами способом
+// Описать класс SimpleCatRepository для реализации этого интерфейса.
+// URL базы данных и имя таблицы задайте в конструкторе класса выбранным Вами способом
 //
 // В каждом методе отрыть и закрыть отдельный connection
 // После вызова метода close толка от объекта connection уже нет.
@@ -28,7 +28,7 @@ public class SimpleCatRepository implements CatRepository <Cat, Long>{
         Connection connection = DriverManager.getConnection(DB_URL);
         Statement statement = connection.createStatement();
 
-        statement.executeUpdate("CREATE TABLE cats (ID BIGINT, Name VARCHAR(30), Weight INT, Angry BIT)");
+        statement.executeUpdate("CREATE TABLE cats (ID BIGINT, Name VARCHAR(64), Weight INT, Angry BIT)");
 
     }
 
@@ -130,10 +130,12 @@ public class SimpleCatRepository implements CatRepository <Cat, Long>{
     @Override
     public void delete(Long id) throws SQLException {
         Connection connection = DriverManager.getConnection(DB_URL);
-        Statement statement = connection.createStatement();
+        String sqlSelect = "DELETE FROM cats WHERE ID = ?";
+        PreparedStatement preparedStatement = connection.prepareStatement(sqlSelect);
+        preparedStatement.setString(1, String.valueOf(id));
 
+        System.out.println("Удалено записей: " +preparedStatement.executeUpdate());
         connection.close();
-
     }
 
     @Override
