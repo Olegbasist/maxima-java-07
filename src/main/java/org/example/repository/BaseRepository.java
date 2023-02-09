@@ -21,7 +21,7 @@ public interface BaseRepository<T, I> {
     boolean create(T element) throws SQLException;
 
     // Read
-    T read(I id) throws SQLException;
+    T read(I id) throws SQLException, IncorrectCatWeightException;
 
     // Update
     int update(I id, T element) throws SQLException;

@@ -9,8 +9,6 @@ package org.example.repository;
 
 import org.example.model.Cat;
 import org.example.model.IncorrectCatWeightException;
-import org.h2.command.Prepared;
-
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -32,8 +30,6 @@ public class SimpleCatRepository implements CatRepository <Cat, Long>{
 
         statement.executeUpdate("CREATE TABLE cats (ID BIGINT, Name VARCHAR(30), Weight INT, Angry BIT)");
 
-        //addTestCats();
-        //getAllCats();
     }
 
     // Мои тестовые методы ----------------------------------------------------------------
@@ -96,12 +92,26 @@ public class SimpleCatRepository implements CatRepository <Cat, Long>{
     }
 
     @Override
-    public Cat read(Long id) throws SQLException {
+    public Cat read(Long id) throws SQLException, IncorrectCatWeightException {
         Connection connection = DriverManager.getConnection(DB_URL);
+
+        String sqlSelect = String.format("SELECT * FROM cats WHERE ID = %s", id);
+
+        /*String sqlSelect = "SELECT * FROM cats WHERE ID = ?";
+        PreparedStatement preparedStatement = connection.prepareStatement(sqlSelect);
+        preparedStatement.setString(1, String.valueOf(id));*/
+
+
         Statement statement = connection.createStatement();
+        ResultSet resultSet = statement.executeQuery(sqlSelect);
+        resultSet.next();
+        Cat cat = new Cat(resultSet.getLong("ID")
+                , resultSet.getString("Name")
+                , resultSet.getInt("Weight")
+                ,resultSet.getBoolean("Angry"));
 
         connection.close();
-        return null;
+        return cat;
     }
 
     @Override

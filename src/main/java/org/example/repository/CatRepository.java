@@ -12,7 +12,7 @@ public interface CatRepository <Cat, Long> extends BaseRepository <Cat, Long>{
     boolean create(Cat cat) throws SQLException;
 
     @Override
-    Cat read(Long id) throws SQLException;
+    Cat read(Long id) throws SQLException, IncorrectCatWeightException;
 
     @Override
     int update(Long id, Cat cat) throws SQLException;

@@ -74,12 +74,11 @@ public class App
         System.out.println(simpleCatRepository.update(12L,cat2));
         //simpleCatRepository.create(cat2);
         simpleCatRepository.getAllCats();
-        simpleCatRepository.findAll().forEach(cat1 -> System.out.println(cat1.toString()));
+        //simpleCatRepository.findAll().forEach(cat1 -> System.out.println(cat1.toString()));
 
-        //simpleCatRepository.connectToDB();
-        //simpleCatRepository.createTable();
-        //simpleCatRepository.getAllCats();
-        //simpleCatRepository.disconnectFromDB();
+        System.out.println(simpleCatRepository.read(1l));
+
+
 
 
 
