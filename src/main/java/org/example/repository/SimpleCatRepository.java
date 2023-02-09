@@ -113,15 +113,30 @@ public class SimpleCatRepository implements CatRepository <Cat, Long>{
 
     @Override
     public int update(Long id, Cat cat) throws SQLException {
-        String sqlUpdate = "UPDATE cats SET Name = ?, Weight = ?, Angry = ? WHERE ID = ?";
-
         Connection connection = DriverManager.getConnection(DB_URL);
+
+        // Statement
+        String sqlQuery = String.format("UPDATE cats SET " +
+                "Name = '%s', " +
+                "Weight = %s, " +
+                "Angry = %s " +
+                        "WHERE ID = %s",
+                cat.getName(),
+                cat.getWeight(),
+                (cat.isAngry() ? 1 : 0),
+                id);
+
+        Statement statement = connection.createStatement();
+        int result = statement.executeUpdate(sqlQuery);
+
+        // Prepared Statement
+        /*String sqlUpdate = "UPDATE cats SET Name = ?, Weight = ?, Angry = ? WHERE ID = ?";
         PreparedStatement preparedStatement = connection.prepareStatement(sqlUpdate);
         preparedStatement.setString(1, cat.getName());
         preparedStatement.setString(2, String.valueOf(cat.getWeight()));
         preparedStatement.setString(3, String.valueOf((cat.isAngry() ? 1 : 0)));
         preparedStatement.setString(4, String.valueOf(id));
-        int result = preparedStatement.executeUpdate();
+        int result = preparedStatement.executeUpdate();*/
 
         connection.close();
         return result;
@@ -130,22 +145,28 @@ public class SimpleCatRepository implements CatRepository <Cat, Long>{
     @Override
     public void delete(Long id) throws SQLException {
         Connection connection = DriverManager.getConnection(DB_URL);
-        String sqlSelect = "DELETE FROM cats WHERE ID = ?";
+
+        // Statement
+        String sqlQuery = String.format("DELETE FROM cats WHERE ID = %s", id);
+        Statement statement = connection.createStatement();
+        statement.executeUpdate(sqlQuery);
+
+        // Prepared Statement
+        /*String sqlSelect = "DELETE FROM cats WHERE ID = ?";
         PreparedStatement preparedStatement = connection.prepareStatement(sqlSelect);
         preparedStatement.setString(1, String.valueOf(id));
+        preparedStatement.executeUpdate();*/
 
-        System.out.println("Удалено записей: " +preparedStatement.executeUpdate());
         connection.close();
     }
 
     @Override
     public List<Cat> findAll() throws SQLException, IncorrectCatWeightException {
-
-
         Connection connection = DriverManager.getConnection(DB_URL);
-        Statement statement = connection.createStatement();
-
         List<Cat> catList = new ArrayList<>();
+
+        // Statement
+        Statement statement = connection.createStatement();
         ResultSet resultSet = statement.executeQuery("SELECT * FROM cats");
 
         while (resultSet.next()){
