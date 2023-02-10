@@ -18,6 +18,7 @@ public class SimpleCatRepository implements CatRepository <Cat, Long>{
     //Соединение с БД -------------------------------------------------
 
     private final String DB_URL;
+    private final String tableName = "CATS";
 
     public SimpleCatRepository(String DB_URL, String DB_DRIVER) throws ClassNotFoundException, SQLException {
         this.DB_URL = DB_URL;
@@ -25,7 +26,7 @@ public class SimpleCatRepository implements CatRepository <Cat, Long>{
         createTable();
     }
     public void createTable() throws SQLException {
-        final String tableName = "CATS";
+
         String sqlQueryCreateTable = String.format("CREATE TABLE %s (ID BIGINT, Name VARCHAR(64), Weight INT, Angry BIT)",tableName);
 
         Connection connection = DriverManager.getConnection(DB_URL);
@@ -50,13 +51,14 @@ public class SimpleCatRepository implements CatRepository <Cat, Long>{
         Connection connection = DriverManager.getConnection(DB_URL);
 
         //Statement
-        String sqlQuery = String.format("INSERT INTO cats (ID, Name, Weight, Angry) " +
+        String sqlQuery = String.format("INSERT INTO %s (ID, Name, Weight, Angry) " +
                 "VALUES (%s, '%s', %s, %s)",
+                tableName,
                 cat.getId(),
                 cat.getName(),
                 cat.getWeight(),
                 (cat.isAngry() ? 1 : 0));
-        String sqlQueryCatExist = String.format("SELECT Name FROM cats WHERE ID = %s", cat.getId());
+        String sqlQueryCatExist = String.format("SELECT Name FROM %s WHERE ID = %s", tableName, cat.getId());
 
         Statement statement = connection.createStatement();
         ResultSet resultSet =  statement.executeQuery(sqlQueryCatExist);
@@ -81,7 +83,7 @@ public class SimpleCatRepository implements CatRepository <Cat, Long>{
         Connection connection = DriverManager.getConnection(DB_URL);
 
         // Statement
-        String sqlQuery = String.format("SELECT * FROM cats WHERE ID = %s", id);
+        String sqlQuery = String.format("SELECT * FROM %s WHERE ID = %s", tableName, id);
         Statement statement = connection.createStatement();
         ResultSet resultSet = statement.executeQuery(sqlQuery);
 
@@ -112,11 +114,12 @@ public class SimpleCatRepository implements CatRepository <Cat, Long>{
         Connection connection = DriverManager.getConnection(DB_URL);
 
         // Statement
-        String sqlQuery = String.format("UPDATE cats SET " +
+        String sqlQuery = String.format("UPDATE %s SET " +
                 "Name = '%s', " +
                 "Weight = %s, " +
                 "Angry = %s " +
                         "WHERE ID = %s",
+                tableName,
                 cat.getName(),
                 cat.getWeight(),
                 (cat.isAngry() ? 1 : 0),
@@ -143,7 +146,7 @@ public class SimpleCatRepository implements CatRepository <Cat, Long>{
         Connection connection = DriverManager.getConnection(DB_URL);
 
         // Statement
-        String sqlQuery = String.format("DELETE FROM cats WHERE ID = %s", id);
+        String sqlQuery = String.format("DELETE FROM %s WHERE ID = %s", tableName, id);
         Statement statement = connection.createStatement();
         statement.executeUpdate(sqlQuery);
 
@@ -159,11 +162,12 @@ public class SimpleCatRepository implements CatRepository <Cat, Long>{
     @Override
     public List<Cat> findAll() throws SQLException, IncorrectCatWeightException {
         Connection connection = DriverManager.getConnection(DB_URL);
+        String sqlQuery = String.format("SELECT * FROM %s", tableName);
         List<Cat> catList = new ArrayList<>();
 
         // Statement
         Statement statement = connection.createStatement();
-        ResultSet resultSet = statement.executeQuery("SELECT * FROM cats");
+        ResultSet resultSet = statement.executeQuery(sqlQuery);
 
         while (resultSet.next()){
                 catList.add(new Cat(resultSet.getLong("ID")

@@ -62,9 +62,6 @@ public class App
 
         // -----------------------------------------------------------------
         SimpleCatRepository simpleCatRepository = new SimpleCatRepository(DB_URL, DB_DRIVER);
-        //simpleCatRepository.addTestCats();
-        //simpleCatRepository.getAllCats();
-        //SimpleCatRepository simpleCatRepository1 = new SimpleCatRepository(DB_URL, DB_DRIVER);
 
         System.out.println("-------------------------------------------");
         Cat cat = new Cat(12L,"Kott",7,false);
@@ -76,11 +73,17 @@ public class App
         simpleCatRepository.create(cat2);
         simpleCatRepository.getAllCats();
 
-        System.out.println(simpleCatRepository.read(1L));
-        //simpleCatRepository.findAll().forEach(cat1 -> System.out.println(cat1.toString()));
+        System.out.println(simpleCatRepository.read(13L));
 
-        //System.out.println(simpleCatRepository.read(9l));
-        //System.out.println(simpleCatRepository.read(3L));
+        simpleCatRepository.update(12L, cat2);
+        simpleCatRepository.update(13L, cat);
+        simpleCatRepository.getAllCats();
+
+        simpleCatRepository.delete(13L);
+        simpleCatRepository.getAllCats();
+
+        simpleCatRepository.addTestCats();
+        simpleCatRepository.findAll().forEach(cat1 -> System.out.println(cat1.toString()));
 
 
 
