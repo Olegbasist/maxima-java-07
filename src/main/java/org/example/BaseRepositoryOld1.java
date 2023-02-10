@@ -9,7 +9,7 @@ package org.example;
 
 // См. комментарии в BaseRepository2
 
-public interface BaseRepository {
+public interface BaseRepositoryOld1 {
 
     public static final String DB_URL = "jdbc:h2:mem:db";
     public static final String DB_DRIVER = "org.h2.Driver";

@@ -15,7 +15,7 @@ package org.example;
 
 import java.util.ArrayList;
 
-public interface BaseRepository2<Cat> {
+public interface BaseRepositoryOld2<Cat> {
 
 
     ArrayList<Cat> allFilms();
