@@ -25,16 +25,23 @@ public class SimpleCatRepository implements CatRepository <Cat, Long>{
         createTable();
     }
     public void createTable() throws SQLException {
+        final String tableName = "CATS";
+        String sqlQueryCreateTable = String.format("CREATE TABLE %s (ID BIGINT, Name VARCHAR(64), Weight INT, Angry BIT)",tableName);
 
         Connection connection = DriverManager.getConnection(DB_URL);
         Statement statement = connection.createStatement();
 
         DatabaseMetaData databaseMetaData = connection.getMetaData();
-        ResultSet resultSet = databaseMetaData.getTables(null, null,"cats", null);
-        if (resultSet.next()){
-            statement.executeUpdate("CREATE TABLE cats (ID BIGINT, Name VARCHAR(64), Weight INT, Angry BIT)");
-        }
+        ResultSet resultSet = databaseMetaData.getTables(null, null,tableName, null);
 
+        if (!resultSet.next()){
+            statement.executeUpdate(sqlQueryCreateTable);
+
+        }else {
+            System.out.print("Таблица ");
+            System.out.print(resultSet.getString(3));
+            System.out.println(" уже существует");
+        }
     }
 
     // CRUD методы -----------------------------------------------------------------------
