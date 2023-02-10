@@ -75,6 +75,8 @@ public class App
         //System.out.println(simpleCatRepository.update(12L,cat2));
         simpleCatRepository.create(cat2);
         simpleCatRepository.getAllCats();
+
+        System.out.println(simpleCatRepository.read(1L));
         //simpleCatRepository.findAll().forEach(cat1 -> System.out.println(cat1.toString()));
 
         //System.out.println(simpleCatRepository.read(9l));

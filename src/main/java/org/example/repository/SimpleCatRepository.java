@@ -57,11 +57,11 @@ public class SimpleCatRepository implements CatRepository <Cat, Long>{
                 cat.getWeight(),
                 (cat.isAngry() ? 1 : 0));
         String sqlQueryCatExist = String.format("SELECT Name FROM cats WHERE ID = %s", cat.getId());
-        
+
         Statement statement = connection.createStatement();
         ResultSet resultSet =  statement.executeQuery(sqlQueryCatExist);
 
-        boolean result = !resultSet.next() ? statement.execute(sqlQuery) : false;
+        boolean result = !resultSet.next() && statement.execute(sqlQuery);
 
         // Prepared Statement
         /*String sqlInsert = "INSERT INTO cats(ID, Name, Weight, Angry) VALUES (?, ?, ?, ?)";
@@ -92,14 +92,19 @@ public class SimpleCatRepository implements CatRepository <Cat, Long>{
 
         ResultSet resultSet = preparedStatement.executeQuery();*/
 
-        resultSet.next();
-        Cat cat = new Cat(resultSet.getLong("ID")
-                , resultSet.getString("Name")
-                , resultSet.getInt("Weight")
-                ,resultSet.getBoolean("Angry"));
 
-        connection.close();
-        return cat;
+        if (!resultSet.next()) {
+            System.out.printf("Кот с ID = %s не найден%n", id);
+            connection.close();
+            return null;
+        } else {
+            Cat cat = new Cat(resultSet.getLong("ID")
+                    , resultSet.getString("Name")
+                    , resultSet.getInt("Weight")
+                    , resultSet.getBoolean("Angry"));
+            connection.close();
+            return cat;
+        }
     }
 
     @Override
