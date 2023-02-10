@@ -179,43 +179,5 @@ public class SimpleCatRepository implements CatRepository <Cat, Long>{
         connection.close();
         return catList;
     }
-
-    // Мои тестовые методы ----------------------------------------------------------------
-
-
-    public void addTestCats () throws SQLException {
-        Connection connection = DriverManager.getConnection(DB_URL);
-        Statement statement = connection.createStatement();
-
-        statement.executeUpdate("INSERT INTO cats(ID, Name, Weight, Angry) VALUES (1,'Cat', 5, 1)");
-        statement.executeUpdate("INSERT INTO cats(ID, Name, Weight, Angry) VALUES (9,'Cat9', 4, 0)");
-        statement.executeUpdate("INSERT INTO cats(ID, Name, Weight, Angry) VALUES (2,'Cat2', 6, 0)");
-        statement.executeUpdate("INSERT INTO cats(ID, Name, Weight, Angry) VALUES (3,'Cat3', 7, 1)");
-
-        connection.close();
-    }
-
-    public void getAllCats() throws SQLException {
-        try {
-            Connection connection = DriverManager.getConnection(DB_URL);
-            Statement statement = connection.createStatement();
-
-            System.out.println("Вывожу всех котов:");
-            ResultSet resultSet;
-
-            resultSet = statement.executeQuery("SELECT * FROM cats");
-
-            while (resultSet.next()){
-                Long id = resultSet.getLong("ID");
-                String name = resultSet.getString("Name");
-                int weight = resultSet.getInt("Weight");
-                boolean isAngry = resultSet.getBoolean("Angry");
-                System.out.println(id + " " + name + " " + weight + " " + isAngry);
-            }
-            connection.close();
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
-        System.out.println("Коты кончились.");
-    }
+    
 }
