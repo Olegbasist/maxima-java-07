@@ -56,9 +56,12 @@ public class SimpleCatRepository implements CatRepository <Cat, Long>{
                 cat.getName(),
                 cat.getWeight(),
                 (cat.isAngry() ? 1 : 0));
-
+        String sqlQueryCatExist = String.format("SELECT Name FROM cats WHERE ID = %s", cat.getId());
+        
         Statement statement = connection.createStatement();
-        boolean result = statement.execute(sqlQuery);
+        ResultSet resultSet =  statement.executeQuery(sqlQueryCatExist);
+
+        boolean result = !resultSet.next() ? statement.execute(sqlQuery) : false;
 
         // Prepared Statement
         /*String sqlInsert = "INSERT INTO cats(ID, Name, Weight, Angry) VALUES (?, ?, ?, ?)";

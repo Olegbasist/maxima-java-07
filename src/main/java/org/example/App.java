@@ -68,13 +68,13 @@ public class App
 
         System.out.println("-------------------------------------------");
         Cat cat = new Cat(12L,"Kott",7,false);
-        //simpleCatRepository.create(cat);
+        simpleCatRepository.create(cat);
         //simpleCatRepository.getAllCats();
 
         Cat cat2 = new Cat(13L,"Kott2",5,true);
         //System.out.println(simpleCatRepository.update(12L,cat2));
-        //simpleCatRepository.create(cat2);
-        //simpleCatRepository.getAllCats();
+        simpleCatRepository.create(cat2);
+        simpleCatRepository.getAllCats();
         //simpleCatRepository.findAll().forEach(cat1 -> System.out.println(cat1.toString()));
 
         //System.out.println(simpleCatRepository.read(9l));
