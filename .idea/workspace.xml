@@ -5,7 +5,11 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="0f7be44e-9e16-4981-95d2-d1be8ac1f698" name="Changes" comment="">
+<<<<<<< Updated upstream
       <change beforePath="$PROJECT_DIR$/src/main/java/org/example/BaseRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/BaseRepository.java" afterDir="false" />
+=======
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/App.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/App.java" afterDir="false" />
+>>>>>>> Stashed changes
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -60,6 +64,17 @@
       <workItem from="1667300088009" duration="5920000" />
       <workItem from="1667317358027" duration="528000" />
       <workItem from="1667399952691" duration="89000" />
+<<<<<<< Updated upstream
+=======
+      <workItem from="1674901632136" duration="3727000" />
+      <workItem from="1674965659986" duration="18893000" />
+      <workItem from="1675171798183" duration="2611000" />
+      <workItem from="1675174583790" duration="354000" />
+      <workItem from="1675174993686" duration="37000" />
+      <workItem from="1675856281350" duration="5212000" />
+      <workItem from="1675920788567" duration="9806000" />
+      <workItem from="1676010201181" duration="7766000" />
+>>>>>>> Stashed changes
     </task>
     <servers />
   </component>
